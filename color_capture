@@ -1,0 +1,21 @@
+
+import cv2
+import numpy as np
+
+cap=cv2.VideoCapture(0)
+while(True):
+    ret, frame = cap.read()
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    l_b = np.array([90,50,50])
+    u_b = np.array([110,255,255])
+    mask = cv2.inRange(hsv, l_b, u_b)
+    blue=cv2.bitwise_and(frame,frame,mask=mask)
+    cv2.imshow('test', frame)
+    cv2.imshow("Blue mask",blue)
+    if blue is True:
+        cv2.imwrite('opencv'+'.jpg',frame)
+        break
+    if cv2.waitKey(1) ==ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
