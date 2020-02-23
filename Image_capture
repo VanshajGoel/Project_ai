@@ -1,0 +1,16 @@
+import cv2
+camera = cv2.VideoCapture(0)
+
+return_value, image = camera.read()
+cv2.imwrite('opencv.png', image)
+del(camera)
+
+
+import extcolors
+img=cv2.imread('opencv.png')
+img = cv2.resize(img, (0, 0), fx = 0.1, fy = 0.1)
+cv2.imwrite('opencv.png',img)
+colors, pixel_count = extcolors.extract('opencv.png')
+print(colors)
+
+print(colors[0])
