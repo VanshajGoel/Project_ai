@@ -12,9 +12,7 @@ while(True):
     blue=cv2.bitwise_and(frame,frame,mask=mask)
     cv2.imshow('test', frame)
     cv2.imshow("Blue mask",blue)
-    if blue is True:
-        cv2.imwrite('opencv'+'.jpg',frame)
-        break
+    
     if cv2.waitKey(1) ==ord('q'):
         break
 cap.release()
