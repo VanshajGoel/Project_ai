@@ -1,16 +1,16 @@
 import cv2
-camera = cv2.VideoCapture(0)
-
-return_value, image = camera.read()
-cv2.imwrite('opencv.png', image)
-del(camera)
-
-
 import extcolors
-img=cv2.imread('opencv.png')
-img = cv2.resize(img, (0, 0), fx = 0.1, fy = 0.1)
-cv2.imwrite('opencv.png',img)
-colors, pixel_count = extcolors.extract('opencv.png')
-print(colors)
-
-print(colors[0])
+for i in range(3):
+    camera = cv2.VideoCapture(0)
+    return_value, image = camera.read()
+    cv2.imwrite('Images\opencv'+str(i)+'.png', image)
+    del(camera)
+    img=cv2.imread('Images\opencv'+str(i)+'.png')
+    img = cv2.resize(img, (0, 0), fx = 0.1, fy = 0.1)
+    cv2.imwrite('Images\opencv'+str(i)+'.png',img)
+    colors, pixel_count = extcolors.extract('Images\opencv'+str(i)+'.png')
+    lst = (colors[0])
+    lst_2 = (lst[0])
+    print("Red Component=", lst_2[0])
+    print("Green Component=", lst_2[1])
+    print("Blue Component=", lst_2[2])
