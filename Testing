@@ -1,0 +1,23 @@
+import cv2
+import extcolors
+camera = cv2.VideoCapture(0)
+return_value, image = camera.read()
+cv2.imshow('test', image)
+for i in range(3):
+    #camera = cv2.VideoCapture(0)
+    #return_value, image = camera.read()
+    #cv2.imshow('test', image)
+    cv2.imwrite('Images\opencv'+str(i)+'.png', image)
+    #del(camera)
+    img=cv2.imread('Images\opencv'+str(i)+'.png')
+    img = cv2.resize(img, (0, 0), fx = 0.1, fy = 0.1)
+    cv2.imwrite('Images\opencv'+str(i)+'.png',img)
+    colors, pixel_count = extcolors.extract('Images\opencv'+str(i)+'.png')
+    lst = (colors[0])
+    lst_2 = (lst[0])
+    print("Red Component=", lst_2[0])
+    print("Green Component=", lst_2[1])
+    print("Blue Component=", lst_2[2])
+    print("-----------------------------------------------------------------")
+del (camera)
+cv2.destroyAllWindows()
