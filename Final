@@ -1,18 +1,20 @@
 import cv2
 import extcolors
-import xlwt
 j=0
-wb = xlwt.Workbook()
-ws = wb.add_sheet("C_CODES")
-ws.write(0, 0, 'RED')
-ws.write(0, 1, 'BLUE')
-ws.write(0, 2, 'GREEN')
+from xlrd import open_workbook
+import openpyxl
+rowCount = 0
+wb = open_workbook('Color.xlsx')
+ws = wb.sheet_by_index(0)
+rowCount = ws.nrows
+rowCount+=1
+book = openpyxl.load_workbook('Color.xlsx')
+sheet = book.get_sheet_by_name('Sheet1')
 for i in range(3):
     j+=1
     camera = cv2.VideoCapture(0)
     return_value, image = camera.read()
     cv2.imwrite('Images\opencv'+str(i)+'.png', image)
-    #cv2.imshow('Image','Images\opencv'+str(i)+'.png')
     del(camera)
     img=cv2.imread('Images\opencv'+str(i)+'.png')
     cv2.imshow('Image',img)
@@ -26,9 +28,10 @@ for i in range(3):
     print("Red Component=", lst_2[0])
     print("Green Component=", lst_2[1])
     print("Blue Component=", lst_2[2])
-    ws.write(j, 0, lst_2[0])
-    ws.write(j, 1, lst_2[1])
-    ws.write(j, 2, lst_2[2])
-    wb.save('Color.xls')
+    sheet.cell(row=rowCount, column=1,value=lst_2[0])
+    sheet.cell(row=rowCount, column=2,value=lst_2[1])
+    sheet.cell(row=rowCount, column=3, value=lst_2[2])
+    book.save('Color.xlsx')
+    rowCount+=1
 
 
