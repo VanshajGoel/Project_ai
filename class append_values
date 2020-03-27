@@ -1,0 +1,34 @@
+from xlrd import open_workbook
+import openpyxl
+import xlsxwriter
+import time
+timestr = time.strftime("%d%m%Y%H%M%S")
+class AppendValues:
+    # Function 1-------------Stores color code in Train_Data
+    #NOTE-Create a excel file "Train_Data.xlsx" Before running this func.
+    def Train_Data(x,y,z):
+        wb = open_workbook('Train_Data.xlsx')
+        ws = wb.sheet_by_index(0)
+        rowCount = ws.nrows
+        rowCount += 1
+        book = openpyxl.load_workbook('Train_Data.xlsx')
+        sheet = book.get_sheet_by_name('All_Codes')
+        sheet.cell(row=rowCount, column=1, value=x)
+        sheet.cell(row=rowCount, column=2, value=y)
+        sheet.cell(row=rowCount, column=3, value=z)
+        book.save('Train_Data.xlsx')
+
+    # Function 2--------------Creates a excel file "RunDateTimeHH-MM-SS"
+    def runDateTime():
+        workbook = xlsxwriter.Workbook('Run'+timestr+'.xlsx')
+        workbook.close()
+    # Function 3------------Stores color code in file created in function 2
+    def store_runDateTime(x,y,z):
+        wb = open_workbook('Run'+timestr+'.xlsx')
+        ws = wb.sheet_by_index(0)
+        book = openpyxl.load_workbook('Run'+timestr+'.xlsx')
+        sheet = book.get_sheet_by_name('Sheet1')
+        sheet.cell(row=1, column=1, value=x)
+        sheet.cell(row=1, column=2, value=y)
+        sheet.cell(row=1, column=3, value=z)
+        book.save('Run'+timestr+'.xlsx')
